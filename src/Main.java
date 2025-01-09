@@ -65,7 +65,43 @@ public class Main {
                         bienPlaces++;
                     }
                 }
-                
+
+                int malPlaces = 0;
+                boolean[] utilises = new boolean[5];
+                for (int j = 0; j < 5; j++) {
+                    if (sequenceSecrete[j] == proposition[j]) {
+                        utilises[j] = true;
+                    }
+                }
+                for (int j = 0; j < 5; j++) {
+                    if (sequenceSecrete[j] != proposition[j]) {
+                        for (int k = 0; k < 5; k++) {
+                            if (!utilises[k] && proposition[j] == sequenceSecrete[k]) {
+                                malPlaces++;
+                                utilises[k] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.out.println("Indices: " + bienPlaces + " bien placé(s), " + malPlaces + " mal placé(s)");
+
+                if (bienPlaces == 5) {
+                    System.out.println("Félicitations ! Vous avez gagner");
+                    victoire = true;
+                    break;
+                }
+            }
+
+            if (!victoire) {
+                System.out.print("Perdue, la séquence était : ");
+                for (int j = 0; j < 5; j++) {
+                    System.out.print(sequenceSecrete[j] + " ");
+                }
+                System.out.println();
+            }
+
             System.out.print("Voulez-vous rejouer ? (o/n) : ");
             String reponse = clavier.next().toUpperCase();
             while (!reponse.equals("N")&&!reponse.equals("O")&&!reponse.equals("OUI")&&!reponse.equals("NON")) {
